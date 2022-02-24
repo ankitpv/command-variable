@@ -201,6 +201,19 @@ function activate(context) {
     })
   );
   context.subscriptions.push(
+    vscode.commands.registerCommand('extension.commandvariable.file.relativeFileDotsNoExtension1Down', () => {
+      let relativeFile = relative_FileOrDirname_Posix(false);
+      let relativeFile = relativeFile.substring(relativeFile.indexOf('/')+1);
+      let lastSeparator = relativeFile.lastIndexOf('/');
+      if (lastSeparator < 0) { lastSeparator = 0; }
+      let lastDot = relativeFile.lastIndexOf('.');
+      if (lastDot > lastSeparator+1) {  // file has an extension
+        relativeFile = relativeFile.substring(0, lastDot);
+      }
+      return dot_dir_separator(relativeFile);
+    })
+  );
+  context.subscriptions.push(
     vscode.commands.registerCommand('extension.commandvariable.file.relativeFileDirnamePosix', () => {
       return relative_FileOrDirname_Posix(true);
     })
